@@ -6,11 +6,12 @@ body {
 
 textarea{
   background: transparent;
-  border: none;
+  border: 1px;
   resize: none;
   color: #000000;
   border-left: 1px solid black;
-  padding: 10px;
+  padding: 20px;
+  width: 1020px;
 }
 
 .jumbotron {
@@ -25,8 +26,12 @@ textarea{
   white-space: pre-wrap;
 }
 
+
+input {
+  padding-right: 80px;
+}
+
 .time-block{
-  text-align: center;
   border-radius: 15px;
 }
 
@@ -63,6 +68,8 @@ textarea{
   border-bottom-right-radius: 15px;
   background-color: #06AED5;
   color: white;
+  padding-top: 60px;
+  padding-right: 13px;
 }
 
 .saveBtn i:hover {
