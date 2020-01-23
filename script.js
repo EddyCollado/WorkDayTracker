@@ -6,8 +6,7 @@
 
 //ID || Classes for targeting
 //.jumbotron, #currentDay also with a class of .lead,
-//.container (this is where the Timeblock goes)
-
+//.container (this is where the time-block goes)
 
 
 
@@ -31,69 +30,96 @@ now = moment().format('dddd, MMMM Do');
 $("#currentDay").text(now);
 
 
+var todos = [];
 
-//needs update for present attr
-    
-    if (nineAMInput.name < startOfHour) 
-    nineAMInput.setAttribute("class", "future");
-    if (nineAMInput.name > startOfHour) 
-    nineAMInput.setAttribute("class", "past");
-    
-    
-    if (tenAMInput.name < startOfHour) 
-    tenAMInput.setAttribute("class", "future");
-    if (tenAMInput.name > startOfHour) 
-    tenAMInput.setAttribute("class", "past");
-
-    if (elevenAMInput.name < startOfHour) 
-    elevenAMInput.setAttribute("class", "future");
-    if (elevenAMInput.name > startOfHour) 
-    elevenAMInput.setAttribute("class", "past");
-
-    if (twelvePMInput.name < startOfHour) 
-    twelvePMInput.setAttribute("class", "future");
-    if (twelvePMInput.name > startOfHour) 
-    twelvePMInput.setAttribute("class", "past");
-
-    if (onePMInput.name < startOfHour) 
-    onePMInput.setAttribute("class", "future");
-    if (onePMInput.name > startOfHour) 
-    onePMInput.setAttribute("class", "past");
-
-    if (twoPMInput.name < startOfHour) 
-    twoPMInput.setAttribute("class", "future");
-    if (twoPMInput.name > startOfHour) 
-    twoPMInput.setAttribute("class", "past");
-
-    if (threePMInput.name < startOfHour) 
-    threePMInput.setAttribute("class", "future");
-    if (threePMInput.name > startOfHour) 
-    threePMInput.setAttribute("class", "past");
-
-    if (fourPMInput.name < startOfHour) 
-    fourPMInput.setAttribute("class", "future");
-    if (fourPMInput.name > startOfHour) 
-    fourPMInput.setAttribute("class", "past");
-
-    if (fivePMInput.name < startOfHour) 
-    fivePMInput.setAttribute("class", "future");
-    if (fivePMInput.name > startOfHour) 
-    fivePMInput.setAttribute("class", "past");
 
 
 //These lines depict where the time is currentTime
 //then the beginning of the day with todays date
 //finally ending the day with todays date
-//use this as referene to manipualte the range between 9am - 5pm
+//use this as reference to manipualte the range between 9am - 5pm
 
 
 $(document).ready(function () {
 
-    
-    $(".saveBtn").on("click", function (event) {
-        event.preventDefault();
-        alert("Timestamp saved!");
+    var timeBlock = $("#time-block")
 
+    init();
+    
+
+
+    //needs update for present attr
+    // i switched these around, fix for end result
+//          v               v
+    if (currentTime < nineAMInput.name) {
+        nineAMInput.setAttribute("class", "future");
+    } else if (currentTime > nineAMInput.name) {
+        nineAMInput.setAttribute("class", "past");
+    } else {
+        nineAMInput.setAttribute("class", "present");
+    }
+    
+    if (tenAMInput.name < currentTime) 
+    tenAMInput.setAttribute("class", "future");
+    if (tenAMInput.name > currentTime) 
+    tenAMInput.setAttribute("class", "past");
+    
+    if (elevenAMInput.name < currentTime) 
+    elevenAMInput.setAttribute("class", "future");
+    if (elevenAMInput.name > currentTime) 
+    elevenAMInput.setAttribute("class", "past");
+
+    if (twelvePMInput.name < currentTime) 
+    twelvePMInput.setAttribute("class", "future");
+    if (twelvePMInput.name > currentTime) 
+    twelvePMInput.setAttribute("class", "past");
+
+    if (onePMInput.name < currentTime) 
+    onePMInput.setAttribute("class", "future");
+    if (onePMInput.name > currentTime) 
+    onePMInput.setAttribute("class", "past");
+
+    if (twoPMInput.name < currentTime) 
+    twoPMInput.setAttribute("class", "future");
+    if (twoPMInput.name > currentTime) 
+    twoPMInput.setAttribute("class", "past");
+
+    if (threePMInput.name < currentTime) 
+    threePMInput.setAttribute("class", "future");
+    if (threePMInput.name > currentTime) 
+    threePMInput.setAttribute("class", "past");
+
+    if (fourPMInput.name < currentTime) 
+    fourPMInput.setAttribute("class", "future");
+    if (fourPMInput.name > currentTime) 
+    fourPMInput.setAttribute("class", "past");
+
+    if (fivePMInput.name < currentTime) 
+    fivePMInput.setAttribute("class", "future");
+    if (fivePMInput.name > currentTime) 
+    fivePMInput.setAttribute("class", "past");
+
+
+ 
+    function init () {
+        var storedTodos = JSON.parse(localStorage.getItem("todos"));
+        
+
+        if (storedTodos !== null) {
+            $(this).todos = storedTodos;
+        }
+    }
+    
+    $(".saveBtn").on("click", function () {
+        event.preventDefault();
+
+        function storeTodos() {
+            localStorage.setItem("todos", JSON.stringify(todos));
+
+        }
+
+        
+        
         var textInput = {
            nineAM: nineAMInput.value.trim(),
            tenAM: tenAMInput.value.trim(),
@@ -106,28 +132,33 @@ $(document).ready(function () {
            fivePM: fivePMInput.value.trim(),
         };
 
-        console.log(textInput);
+        if (timeBlock === "") {
+            return;
+        }
 
-        localStorage.setItem("textInput", JSON.stringify(textInput));
+        todos.push(textInput);
+        $('input[type=text], textarea').val = "";
 
-        var savedPlan = JSON.parse(localStorage.getItem("textInput"));
-        nineAMInput.textContent = savedPlan.nineAM;
-        tenAMInput.textContent = savedPlan.tenAM;
-        elevenAMInput.textContent = savedPlan.elevenAM;
-        twelveAMInput.textContent = savedPlan.twelveAM;
-        oneAMInput.textContent = savedPlan.oneAM;
-        twoAMInput.textContent = savedPlan.twoAM;
-        threeAMInput.textContent = savedPlan.threeAM;
-        fourAMInput.textContent = savedPlan.fourAM;
-        fiveAMInput.textContent = savedPlan.fiveAM;
+        
+        storeTodos();
+        alert("Timestamp saved!");
+        console.log(localStorage);
+        location.reload();
     });
+
+    
+
+    $(".clear-button").on('click', function() {
+        alert("Cleared!");
+        $("#time-block").val('');
+        localStorage.clear();
+        console.log(localStorage);
+        
+      });
 
 });
 
-$(".clear-button").on('click', function() {
-    localStorage.clear()
 
-  })
 
   // reload() to refresh the page
 //append the textarea to the list
