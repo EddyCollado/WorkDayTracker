@@ -9,27 +9,31 @@
 //.container (this is where the time-block goes)
 
 
+//This var only seems to select the first textarea, new var selects all textarea on the page
+//var textArea = $("<textarea>");
+//var nineAMInput = document.querySelector("body > div > div > form > textarea:nth-child(1)");
+//var tenAMInput = document.querySelector("body > div > div > form > textarea:nth-child(4)");
+//var elevenAMInput = document.querySelector("body > div > div > form > textarea:nth-child(7)");
+//var twelvePMInput = document.querySelector("body > div > div > form > textarea:nth-child(10)");
+//var onePMInput = document.querySelector("body > div > div > form > textarea:nth-child(13)");
+//var twoPMInput = document.querySelector("body > div > div > form > textarea:nth-child(16)");
+//var threePMInput = document.querySelector("body > div > div > form > textarea:nth-child(19)");
+//var fourPMInput = document.querySelector("body > div > div > form > textarea:nth-child(22)");
+//var fivePMInput = document.querySelector("body > div > div > form > textarea:nth-child(25)");
 
-
-var nineAMInput = document.querySelector("body > div > div > form > textarea:nth-child(1)");
-var tenAMInput = document.querySelector("body > div > div > form > textarea:nth-child(4)");
-var elevenAMInput = document.querySelector("body > div > div > form > textarea:nth-child(7)");
-var twelvePMInput = document.querySelector("body > div > div > form > textarea:nth-child(10)");
-var onePMInput = document.querySelector("body > div > div > form > textarea:nth-child(13)");
-var twoPMInput = document.querySelector("body > div > div > form > textarea:nth-child(16)");
-var threePMInput = document.querySelector("body > div > div > form > textarea:nth-child(19)");
-var fourPMInput = document.querySelector("body > div > div > form > textarea:nth-child(22)");
-var fivePMInput = document.querySelector("body > div > div > form > textarea:nth-child(25)");
+var textarea = document.querySelectorAll("textarea");
 
 var currentTime = moment().format('LT');
 
 var startOfHour = moment().startOf('hour').fromNow(); 
+var endOfHour = moment().endOf('hour').fromNow();
 console.log(startOfHour);
+console.log(endOfHour);
 
 now = moment().format('dddd, MMMM Do'); 
 $("#currentDay").text(now);
 
-
+//Need to combine this with the initial localStorage.getItem || [];
 var todos = [];
 
 
@@ -115,6 +119,11 @@ $(document).ready(function () {
 
         function storeTodos() {
             localStorage.setItem("todos", JSON.stringify(todos));
+            if (textarea == "") {
+                return;
+            }
+
+
 
         }
 
@@ -143,7 +152,7 @@ $(document).ready(function () {
         storeTodos();
         alert("Timestamp saved!");
         console.log(localStorage);
-        location.reload();
+    
     });
 
     
