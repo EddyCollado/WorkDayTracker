@@ -1,85 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Work Day Scheduler</title>
-  </head>
 
-  <body>
-    <header class="jumbotron">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
-      <p id="currentDay" class="lead"></p>
-      <button class="clear-button">Clear All</button>
-    </header>
-    <div class="container">
-      <!-- Timeblocks go below here -->
-      <div class="row">
-        <div class ="timeblock">
-          9AM:<textarea id="time-blockone" class="nineAM" type="text" value="9:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-        10AM:<textarea id="time-blocktwo" class="tenAM" type="text" value="10:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-        11AM:<textarea id="time-blockthree" class="elevenAM" type="text" value="11:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-        12PM:<textarea id="time-blockfour" class="twelvePM" type="text" value="12:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-          1PM:<textarea id="time-blockfive" class="onePM" type="text" value="13:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-          2PM:<textarea id="time-blocksix" class="twoPM" type="text" value="14:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-          3PM:<textarea id="time-blockseven" class="threePM" type="text" value="15:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-          4PM:<textarea id="time-blockeight" class="fourPM" type="text" value="16:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <div class ="timeblock">
-          5PM:<textarea id="time-blocknine" class="fivePM" type="text" value="17:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
-        </div>
-        <!--<form>
-        
-        9AM   <textarea class="timeblock" id="time-block" type="text" name="9:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        10AM <textarea class="timeblock" id="time-block" type="text" name="10:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        11AM <textarea class="timeblock" id="time-block" type="text" name="11:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        12PM <textarea class="timeblock" id="time-block" type="text" name="12:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        1PM   <textarea class="timeblock" id="time-block" type="text" name="13:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        2PM   <textarea class="timeblock" id="time-block" type="text" name="14:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        3PM   <textarea class="timeblock" id="time-block" type="text" name="15:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        4PM   <textarea class="timeblock" id="time-block" type="text" name="16:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button><br>
-        5PM   <textarea class="timeblock" id="time-block" type="text" name="17:00"></textarea><button class="saveBtn"><i class="far fa-save"></i></button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Work Day Scheduler</title>
+</head>
 
-          
-       </form> -->
+<body>
+  <header class="jumbotron">
+    <h1 class="display-3">Work Day Scheduler</h1>
+    <p class="lead">A simple calendar app for scheduling your work day</p>
+    <p id="currentDay" class="lead"></p>
+    <button class="clear-button">Clear All</button>
+  </header>
+  <div class="container">
+    <!-- Timeblocks go below here -->
+    <div class="row">
+      <div id="time-block">
+        9AM:<input id="nineAmPlan" type="text" hour-index="9"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
       </div>
-      
-      
+      <div id="time-block">
+      10AM:<input id="tenAmPlan" type="text" hour-index="10"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
+      <div id="time-block">
+      11AM:<input id="elevenAmPlan" type="text" hour-index="11"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
+      <div id="time-block">
+      12PM:<input id="twelvePmPlan" type="text" hour-index="12"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
+      <div id="time-block">
+        1PM:<input id="onePmPlan" type="text" hour-index="1"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
+      <div id="time-block">
+        2PM:<input id="twoPmPlan" type="text" hour-index="2"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
+      <div id="time-block">
+        3PM:<input id="threePmPlan" type="text" hour-index="3"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
+      <div id="time-block">
+        4PM:<input id="fourPmPlan" type="text" hour-index="4"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
+      <div id="time-block">
+        5PM:<input id="fivePmPlan" type="text" hour-index="5"></input><button class="saveBtn"><i
+            class="far fa-save"></i></button>
+      </div>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script type="text/javascript" src="script2.0.js"></script>
-  </body>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+
 </html>

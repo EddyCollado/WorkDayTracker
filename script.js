@@ -3,180 +3,196 @@
 //.description, .time-block,
 //.row, .hour, .past, .present,
 //.future, .saveBtn, .saveBtn i:hover
-
 //ID || Classes for targeting
 //.jumbotron, #currentDay also with a class of .lead,
 //.container (this is where the time-block goes)
-
-
-//This var only seems to select the first textarea, new var selects all textarea on the page
-//var textArea = $("<textarea>");
-//var nineAMInput = document.querySelector("body > div > div > form > textarea:nth-child(1)");
-//var tenAMInput = document.querySelector("body > div > div > form > textarea:nth-child(4)");
-//var elevenAMInput = document.querySelector("body > div > div > form > textarea:nth-child(7)");
-//var twelvePMInput = document.querySelector("body > div > div > form > textarea:nth-child(10)");
-//var onePMInput = document.querySelector("body > div > div > form > textarea:nth-child(13)");
-//var twoPMInput = document.querySelector("body > div > div > form > textarea:nth-child(16)");
-//var threePMInput = document.querySelector("body > div > div > form > textarea:nth-child(19)");
-//var fourPMInput = document.querySelector("body > div > div > form > textarea:nth-child(22)");
-//var fivePMInput = document.querySelector("body > div > div > form > textarea:nth-child(25)");
-
-var textarea = document.querySelectorAll("textarea");
-
-var currentTime = moment().format('LT');
-
-var startOfHour = moment().startOf('hour').fromNow(); 
-var endOfHour = moment().endOf('hour').fromNow();
-console.log(startOfHour);
-console.log(endOfHour);
-
-now = moment().format('dddd, MMMM Do'); 
-$("#currentDay").text(now);
-
-//Need to combine this with the initial localStorage.getItem || [];
-var todos = [];
-
-
-
-//These lines depict where the time is currentTime
-//then the beginning of the day with todays date
-//finally ending the day with todays date
-//use this as reference to manipualte the range between 9am - 5pm
-
-
 $(document).ready(function () {
 
-    var timeBlock = $("#time-block")
+    var startOfHour = moment().startOf('hour').fromNow();
+    var endOfHour = moment().endOf('hour').fromNow();
+    console.log(startOfHour);
+    console.log(endOfHour);
 
-    init();
-    
+    now = moment().format('dddd, MMMM Do');
+    $("#currentDay").text(now);
 
+    var timeBlockNine = document.getElementById("nineAmPlan")
+    var timeBlockTen = document.getElementById("tenAmPlan")
+    var timeBlockEleven = document.getElementById("elevenAmPlan")
+    var timeBlockTwelve = document.getElementById("twelvePmPlan")
+    var timeBlockOne = document.getElementById("onePmPlan")
+    var timeBlockTwo = document.getElementById("twoPmPlan")
+    var timeBlockThree = document.getElementById("threePmPlan")
+    var timeBlockFour = document.getElementById("fourPmPlan")
+    var timeBlockFive = document.getElementById("fivePmPlan")
 
-    //needs update for present attr
-    // i switched these around, fix for end result
-//          v               v
-    if (currentTime < nineAMInput.name) {
-        nineAMInput.setAttribute("class", "future");
-    } else if (currentTime > nineAMInput.name) {
-        nineAMInput.setAttribute("class", "past");
+    var prevNine = JSON.parse(localStorage.getItem("9am"));
+    var prevTen = JSON.parse(localStorage.getItem("10am"));
+    var prevEleven = JSON.parse(localStorage.getItem("11am"));
+    var prevTwelve = JSON.parse(localStorage.getItem("12pm"));
+    var prevOne = JSON.parse(localStorage.getItem("1pm"));
+    var prevTwo = JSON.parse(localStorage.getItem("2pm"));
+    var prevThree = JSON.parse(localStorage.getItem("3pm"));
+    var prevFour = JSON.parse(localStorage.getItem("4pm"));
+    var prevFive = JSON.parse(localStorage.getItem("5pm"));
+
+    timeBlockNine.value = prevNine;
+    timeBlockTen.value = prevTen;
+    timeBlockEleven.value = prevEleven;
+    timeBlockTwelve.value = prevTwelve;
+    timeBlockOne.value = prevOne;
+    timeBlockTwo.value = prevTwo;
+    timeBlockThree.value = prevThree;
+    timeBlockFour.value = prevFour;
+    timeBlockFive.value = prevFive;
+
+    var formatted = 'hh:mm';
+
+    currentNine = moment(),
+        startNine = moment('9:00', formatted),
+        endNine = moment('9:59', formatted);
+
+    if (currentNine.isBetween(startNine, endNine)) {
+        $("#nineAmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentNine > endNine) {
+        $("#nineAmPlan").attr("class", "past");
     } else {
-        nineAMInput.setAttribute("class", "present");
+        $("#nineAmPlan").attr("class", "future");
     }
-    
-    if (tenAMInput.name < currentTime) 
-    tenAMInput.setAttribute("class", "future");
-    if (tenAMInput.name > currentTime) 
-    tenAMInput.setAttribute("class", "past");
-    
-    if (elevenAMInput.name < currentTime) 
-    elevenAMInput.setAttribute("class", "future");
-    if (elevenAMInput.name > currentTime) 
-    elevenAMInput.setAttribute("class", "past");
 
-    if (twelvePMInput.name < currentTime) 
-    twelvePMInput.setAttribute("class", "future");
-    if (twelvePMInput.name > currentTime) 
-    twelvePMInput.setAttribute("class", "past");
+    currentTen = moment(),
+        startTen = moment('10:00', formatted),
+        endTen = moment('10:59', formatted);
 
-    if (onePMInput.name < currentTime) 
-    onePMInput.setAttribute("class", "future");
-    if (onePMInput.name > currentTime) 
-    onePMInput.setAttribute("class", "past");
-
-    if (twoPMInput.name < currentTime) 
-    twoPMInput.setAttribute("class", "future");
-    if (twoPMInput.name > currentTime) 
-    twoPMInput.setAttribute("class", "past");
-
-    if (threePMInput.name < currentTime) 
-    threePMInput.setAttribute("class", "future");
-    if (threePMInput.name > currentTime) 
-    threePMInput.setAttribute("class", "past");
-
-    if (fourPMInput.name < currentTime) 
-    fourPMInput.setAttribute("class", "future");
-    if (fourPMInput.name > currentTime) 
-    fourPMInput.setAttribute("class", "past");
-
-    if (fivePMInput.name < currentTime) 
-    fivePMInput.setAttribute("class", "future");
-    if (fivePMInput.name > currentTime) 
-    fivePMInput.setAttribute("class", "past");
-
-
- 
-    function init () {
-        var storedTodos = JSON.parse(localStorage.getItem("todos"));
-        
-
-        if (storedTodos !== null) {
-            $(this).todos = storedTodos;
-        }
+    if (currentTen.isBetween(startTen, endTen)) {
+        $("#tenAmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentTen > endTen) {
+        $("#tenAmPlan").attr("class", "past");
+    } else {
+        $("#tenAmPlan").attr("class", "future");
     }
-    
-    $(".saveBtn").on("click", function () {
+
+    currentEleven = moment(),
+        startEleven = moment('11:00', formatted),
+        endEleven = moment('11:59', formatted);
+
+    if (currentEleven.isBetween(startEleven, endEleven)) {
+        $("#elevenAmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentEleven > endEleven) {
+        $("#elevenAmPlan").attr("class", "past");
+    } else {
+        $("#elevenAmPlan").attr("class", "future");
+    }
+
+    currentTwelve = moment(),
+        startTwelve = moment('12:00', formatted),
+        endTwelve = moment('12:59', formatted);
+
+    if (currentTwelve.isBetween(startTwelve, endTwelve)) {
+        $("#twelvePmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentTwelve > endTwelve) {
+        $("#twelvePmPlan").attr("class", "past");
+    } else {
+        $("#twelvePmPlan").attr("class", "future");
+    }
+    currentOne = moment(),
+        startOne = moment('13:00', formatted),
+        endOne = moment('13:59', formatted);
+
+    if (currentOne.isBetween(startOne, endOne)) {
+        $("#onePmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentOne > endOne) {
+        $("#onePmPlan").attr("class", "past");
+    } else {
+        $("#onePmPlan").attr("class", "future");
+    }
+    currentTwo = moment(),
+        startTwo = moment('14:00', formatted),
+        endTwo = moment('14:59', formatted);
+
+    if (currentTwo.isBetween(startTwo, endTwo)) {
+        $("#twoPmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentTwo > endTwo) {
+        $("#twoPmPlan").attr("class", "past");
+    } else {
+        $("#twoPmPlan").attr("class", "future");
+    }
+
+    currentThree = moment(),
+        startThree = moment('15:00', formatted),
+        endThree = moment('15:59', formatted);
+
+    if (currentThree.isBetween(startThree, endThree)) {
+        $("#threePmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentThree > endThree) {
+        $("#threePmPlan").attr("class", "past");
+    } else {
+        $("#threePmPlan").attr("class", "future");
+    }
+
+    currentFour = moment(),
+        startFour = moment('16:00', formatted),
+        endFour = moment('16:59', formatted);
+
+    if (currentFour.isBetween(startFour, endFour)) {
+        $("#fourPmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentFour > endFour) {
+        $("#fourPmPlan").attr("class", "past");
+    } else {
+        $("#fourPmPlan").attr("class", "future");
+    }
+
+    currentFive = moment(),
+        startFive = moment('17:00', formatted),
+        endFive = moment('17:59', formatted);
+
+    if (currentFive.isBetween(startFive, endFive)) {
+        $("#fivePmPlan").attr("class", "present");
+        console.log('is between')
+    } else if (currentFive > endFive) {
+        $("#fivePmPlan").attr("class", "past");
+    } else {
+        $("#fivePmPlan").attr("class", "future");
+    }
+
+    $(".saveBtn").on('click', function () {
         event.preventDefault();
+        alert("Saved!");
 
-        function storeTodos() {
-            localStorage.setItem("todos", JSON.stringify(todos));
-            if (textarea == "") {
-                return;
-            }
-
-
-
+        var plans = {
+            nineAmPlan: timeBlockNine.value.trim(),
+            tenAmPlan: timeBlockTen.value.trim(),
+            elevenAmPlan: timeBlockEleven.value.trim(),
+            twelvePmPlan: timeBlockTwelve.value.trim(),
+            onePmPlan: timeBlockOne.value.trim(),
+            twoPmPlan: timeBlockTwo.value.trim(),
+            threePmPlan: timeBlockThree.value.trim(),
+            fourPmPlan: timeBlockFour.value.trim(),
+            fivePmPlan: timeBlockFive.value.trim()
         }
-
-        
-        
-        var textInput = {
-           nineAM: nineAMInput.value.trim(),
-           tenAM: tenAMInput.value.trim(),
-           elevenAM: elevenAMInput.value.trim(),
-           twelvePM: twelvePMInput.value.trim(),
-           onePM: onePMInput.value.trim(),
-           twoPM: twoPMInput.value.trim(),
-           threePM: threePMInput.value.trim(),
-           fourPM: fourPMInput.value.trim(),
-           fivePM: fivePMInput.value.trim(),
-        };
-
-        if (timeBlock === "") {
-            return;
-        }
-
-        todos.push(textInput);
-        $('input[type=text], textarea').val = "";
-
-        
-        storeTodos();
-        alert("Timestamp saved!");
-        console.log(localStorage);
-    
+        localStorage.setItem("9am", JSON.stringify(plans.nineAmPlan));
+        localStorage.setItem("10am", JSON.stringify(plans.tenAmPlan));
+        localStorage.setItem("11am", JSON.stringify(plans.elevenAmPlan));
+        localStorage.setItem("12pm", JSON.stringify(plans.twelvePmPlan));
+        localStorage.setItem("1pm", JSON.stringify(plans.onePmPlan));
+        localStorage.setItem("2pm", JSON.stringify(plans.twoPmPlan));
+        localStorage.setItem("3pm", JSON.stringify(plans.threePmPlan));
+        localStorage.setItem("4pm", JSON.stringify(plans.fourPmPlan));
+        localStorage.setItem("5pm", JSON.stringify(plans.fivePmPlan));
     });
 
-    
-
-    $(".clear-button").on('click', function() {
+    $(".clear-button").on('click', function () {
         alert("Cleared!");
         $("#time-block").val('');
         localStorage.clear();
         console.log(localStorage);
-        
-      });
-
+    });
 });
-
-
-
-  // reload() to refresh the page
-//append the textarea to the list
-
-//var rowDiv = $(".row");
-
-//function setList() {
-//    $("<li>").append(rowDiv);
-//};
-
-//setList();
-

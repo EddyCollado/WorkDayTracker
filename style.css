@@ -4,7 +4,7 @@ body {
   line-height: 1;
 }
 
-textarea{
+input{
   background: transparent;
   border: 1px;
   resize: none;
@@ -31,7 +31,7 @@ input {
   padding-right: 80px;
 }
 
-.time-block{
+#time-block{
   border-radius: 15px;
 }
 
@@ -68,8 +68,9 @@ input {
   border-bottom-right-radius: 15px;
   background-color: #06AED5;
   color: white;
-  padding-top: 60px;
+  padding-top: 23px;
   padding-right: 13px;
+  padding-bottom: 21px;
 }
 
 .saveBtn i:hover {

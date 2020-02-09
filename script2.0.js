@@ -143,26 +143,12 @@ $(document).ready(function () {
         localStorage.setItem("plannerItems", JSON.stringify(plannerItems));
         localStorage.setItem("lastID", lastID);
     }
-    //Step 4: rendering plannedItems into box from localStorage
-    const renderPlans = items => {
-        if (!items) items = plannerItems;
-        const textBox = $(".time-block textarea");
-        textBox.empty();
-        for (const {nineAM, tenAM, elevenAM, twelvePM, onePM, twoPM, threePM, fourPM, fivePM} of items) {
-            const nineBox = `<textarea>${nineAM}</textarea>`
-            const tenBox = `<textarea>${tenAM}</textarea>`
-            textBox.append(nineBox);
-            textBox.append(tenBox);
-        }
-        console.log(renderPlans);
-    }
-        renderPlans();
+    
     //Step 2: set up click event
     $(".saveBtn").on("click", function () {
         event.preventDefault();
         plannerItems.push(newPlan);
         updateStorage();
-        renderPlans();
         alert("Timestamp saved!");
         console.log(localStorage);
     });
