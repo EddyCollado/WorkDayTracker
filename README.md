@@ -1,8 +1,8 @@
 
   
 
-  ![badge](https://img.shields.io/github/languages/count/PhatOrbs/Homework9.0)
-  ![badge](https://img.shields.io/github/languages/top/PhatOrbs/Homework9.0)
+  ![badge](https://img.shields.io/github/languages/count/PhatOrbs/WorkDayTracker)
+  ![badge](https://img.shields.io/github/languages/top/PhatOrbs/WorkDayTracker)
   ![badge](https://img.shields.io/badge/Generated%20By%3A-README.MD%20Generator-brightgreen)
   ![badge](https://img.shields.io/badge/build-passing-blueviolet)
   
